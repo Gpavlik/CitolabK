@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Citolab™ K — Кошик</title>
+    <link rel="icon" href="./icons/ca.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="Citolab™ K">
+        <img src="./images/logo.svg" alt="Логотип Citolab" aria-hidden="true" width="100px" height="50px">
+      </a>
+       <ul id="navList" class="nav-list">
+           <h1>Оформлення замовлення</h1>
+        </ul>
+          </div>
+  </header>
+<main>
+    <section class="section" id="contact" aria-labelledby="contactTitle">
+    
+        
+      
+      <section id="orderSummary"  class="contra cta-buy"> </section>
+   <section id="orderDetails" class="contra cta-buy">
+    <p>Будь ласка, заповніть форму нижче, щоб завершити покупку. Всі поля, позначені зірочкою (*), є обов’язковими для заповнення.</p>
+                <h2>Деталі замовлення</h2>
+    <div class="contact-grid">
+    <form class="contact-form" id="checkoutForm">
+      <!-- Особисті дані -->
+      <label>Ім’я*<input type="text" name="firstName" required></label>
+      <label>Прізвище*<input type="text" name="lastName" required></label>
+      <label>По-батькові*<input type="text" name="middleName" required></label>
+      <label>Телефон*<input type="tel" name="phone" placeholder="+380XXXXXXXXX" required></label>
+      <label>Email*<input type="email" name="email" required></label>
+        <h3>Адреса доставки</h3>
+        <label>
+        Тип доставки:
+        <select name="deliveryType" required>
+          <option value="branch">У відділення</option>
+          <option value="locker">У поштомат</option>
+          <option value="courier">Кур’єрська доставка</option>
+        </select>
+      </label>
+      <label>
+        Населений пункт:
+        <input type="text" id="cityInput" placeholder="Введіть місто" required>
+        <ul id="citySuggestions" 
+        ></ul>
+      </label>
+
+      <label>
+        Відділення / поштомат:<br>
+        <select id="warehouseSelect" name="branch" required></select>
+      </label>
+
+      <label>
+        Адреса (для кур’єрської доставки):<br>
+        <input type="text" name="address">
+      </label>
+</div>
+      <!-- Оплата -->
+      <h3>Спосіб оплати</h3>
+      <label><input type="radio" name="payment" value="card"> Банківська картка</label>
+      <label><input type="radio" name="payment" value="cod"> Накладений платіж</label>
+
+      <button class="btn btn-primary" type="submit">Підтвердити замовлення</button>
+      <p class="form-status"></p>
+    </form>
+    
+  </section>
+
+  
+
+</main>
+<footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#" class="logo" aria-label="Citolab™ K">
+        <img src="./images/logo.svg" alt="Логотип Citolab" aria-hidden="true" width="100px" height="50px">
+      </a>
+      <p>© 2025 Pharmasco, Citolab™. Всі права захищено.</p>
+      <nav aria-label="Посилання в футері">
+        <a href="https://docs.google.com/document/d/1w59-9jw7uZIRwixzlJ0mXqY3yJqncYznqYX43ojh_64/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Повернення</a>
+        <a href="https://docs.google.com/document/d/1VreKjCVhC6loehMRWrpIcJxYll6RRG6CzWQUW7DmZlE/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Доставка</a>
+        <a href="https://docs.google.com/document/d/1fBAu_Leutk3y47brqFFP238mqQf1uoX4uZC0Wg7GZUU/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Контакти</a>
+        <a href="https://docs.google.com/document/d/1WPHFSTGUrsqNO0I3IPRc2d6-olei5Vq3dbcOn7bb248/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Конфіденційність</a>
+        <a href="https://docs.google.com/document/d/1IPos0naURxyicHi4E2dzRxfbaBymzSnevqQbEV6mGA0/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Договір оферти</a>
+      </nav>
+      
+    </div>
+    <img src="./images/2.2.png" alt="" aria-hidden="true" style="display: block; width: 100%; max-height: 80px;">
+  </footer>
+  <script src="checkout.js"></script>
+</body>
+</html>
+

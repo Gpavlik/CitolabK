@@ -1,0 +1,54 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Citolab™ K — Кошик</title>
+    <link rel="icon" href="./icons/ca.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="Citolab™ K">
+        <img src="./images/logo.svg" alt="Логотип Citolab" aria-hidden="true" width="100px" height="50px">
+      </a>
+       <ul id="navList" class="nav-list">
+           <h1>Ваш кошик</h1>
+        </ul>
+      <nav class="nav" aria-label="Головна навігація">
+        <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="navList">Меню</button>
+      </nav>
+    </div>
+  </header>
+
+<main>
+  <section id="cartItems" class="contra cta-buy"></section>
+  <section id="cartSummary" class="contra cta-buy"></section>
+    <section id="checkout" class="contra cta-buy">
+      <button id="checkoutBtn" class="btn btn-primary">Оформити замовлення</button>
+      <button id="addMoreBtn" class="btn btn-outline">Додати іншу упаковку</button>
+      <button id="clearCartBtn" class="btn btn-danger">Очистити кошик</button>
+    </section>
+
+</main>
+<footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#" class="logo" aria-label="Citolab™ K">
+        <img src="./images/logo.svg" alt="Логотип Citolab" aria-hidden="true" width="100px" height="50px">
+      </a>
+      <p>© 2025 Pharmasco, Citolab™. Всі права захищено.</p>
+      <nav aria-label="Посилання в футері">
+        <a href="https://docs.google.com/document/d/1w59-9jw7uZIRwixzlJ0mXqY3yJqncYznqYX43ojh_64/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Повернення</a>
+        <a href="https://docs.google.com/document/d/1VreKjCVhC6loehMRWrpIcJxYll6RRG6CzWQUW7DmZlE/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Доставка</a>
+        <a href="https://docs.google.com/document/d/1fBAu_Leutk3y47brqFFP238mqQf1uoX4uZC0Wg7GZUU/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Контакти</a>
+        <a href="https://docs.google.com/document/d/1WPHFSTGUrsqNO0I3IPRc2d6-olei5Vq3dbcOn7bb248/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Конфіденційність</a>
+        <a href="https://docs.google.com/document/d/1IPos0naURxyicHi4E2dzRxfbaBymzSnevqQbEV6mGA0/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Договір оферти</a>
+      </nav>
+      
+    </div>
+    <img src="./images/2.2.png" alt="" aria-hidden="true" style="display: block; width: 100%; max-height: 80px;">
+  </footer>
+  <script src="cart.js"></script>
+</body>
+</html>
