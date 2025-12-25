@@ -86,7 +86,7 @@ if (index === items.length - 3) {
   track.style.transform = "translateX(0)"; 
   index = 0; 
 }, 
-0); // трохи більше ніж час анімації 
+1000); // трохи більше ніж час анімації 
 }
 }
 setInterval(slide, 4000); // кожні 4 секунди
