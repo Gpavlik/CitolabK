@@ -1,0 +1,92 @@
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navList = document.getElementById('navList');
+if (navToggle && navList) {
+  navToggle.addEventListener('click', () => {
+    const open = navList.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+}
+
+// Smooth scroll for internal links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const targetId = a.getAttribute('href').slice(1);
+    const el = document.getElementById(targetId);
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // close nav on mobile
+      if (navList && navList.classList.contains('open')) {
+        navList.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }
+    }
+  });
+});
+
+// Buy buttons handler (plug for integration)
+function openCheckout(sku){
+  // TODO: replace with real checkout URL or modal
+  // Example: window.location.href = `/checkout?sku=${encodeURIComponent(sku)}`
+  alert(`Замовлення: ${sku}. Підключіть checkout URL у script.js`);
+}
+
+document.querySelectorAll('button[data-product]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const sku = btn.getAttribute('data-product');
+    openCheckout(sku);
+  });
+});
+
+// Contact form (frontend validation + mock submit)
+const form = document.getElementById('contactForm');
+if (form) {
+  const statusEl = form.querySelector('.form-status');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const formData = new FormData(form);
+    const name = formData.get('name')?.toString().trim();
+    const email = formData.get('email')?.toString().trim();
+    const message = formData.get('message')?.toString().trim();
+
+    // Simple validation
+    if (!name || !email || !message) {
+      statusEl.textContent = 'Будь ласка, заповніть усі поля.';
+      statusEl.style.color = 'var(--danger)';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      statusEl.textContent = 'Некоректний email.';
+      statusEl.style.color = 'var(--danger)';
+      return;
+    }
+
+    // Mock request — replace with backend endpoint
+    // Example: 
+    const res = await fetch('/api/contact', { method:'POST', body: formData });
+    await new Promise(r=>setTimeout(r,700));
+    statusEl.textContent = 'Дякуємо! Ми зв’яжемося з вами найближчим часом.';
+    statusEl.style.color = 'var(--success)';
+    form.reset();
+  });
+}
+const track = document.querySelector('.track'); 
+const items = document.querySelectorAll('.track blockquote'); 
+let index = 0; 
+function slide() { 
+  index++; 
+  track.style.transition = "transform 0.8s ease"; 
+  track.style.transform = `translateX(-${index * 330}px)`;
+
+  // коли дійшли до дубліката — повертаємось на початок без ривка
+if (index === items.length - 3) { 
+  setTimeout(() => { 
+  track.style.transition = "none"; 
+  track.style.transform = "translateX(0)"; 
+  index = 0; 
+}, 
+0); // трохи більше ніж час анімації 
+}
+}
+setInterval(slide, 4000); // кожні 4 секунди
