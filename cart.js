@@ -52,7 +52,7 @@ renderCart();
 
 // оформлення замовлення
 checkoutBtn.addEventListener('click', () => {
-  window.location.href = "CitolabK/checkout.html";
+  window.location.href = "/checkout.html";
 });
 
 

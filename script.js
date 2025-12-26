@@ -75,7 +75,7 @@ document.querySelectorAll('button[data-product]').forEach(btn => {
     cart.push(product);
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    window.location.href = "CitolabK/cart.html";
+    window.location.href = "/cart.html";
   });
 });
 
