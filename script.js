@@ -83,29 +83,31 @@ document.querySelectorAll('button[data-product]').forEach(btn => {
 const form = document.getElementById('contactForm');
 if (form) {
   const statusEl = form.querySelector('.form-status');
-  form.addEventListener('submit', async (e)=>{
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    const name = formData.get('name')?.toString().trim();
-    const email = formData.get('email')?.toString().trim();
-    const message = formData.get('message')?.toString().trim();
 
-    if (!name || !email || !message) {
-      statusEl.textContent = 'Будь ласка, заповніть усі поля.';
-      statusEl.style.color = 'var(--danger)';
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      statusEl.textContent = 'Некоректний email.';
-      statusEl.style.color = 'var(--danger)';
-      return;
-    }
+    // додаємо маркер, щоб Apps Script знав що це відгук
+    formData.append("formType", "feedback");
 
-    await fetch('/api/contact', { method:'POST', body: formData });
-    await new Promise(r=>setTimeout(r,700));
-    statusEl.textContent = 'Дякуємо! Ми зв’яжемося з вами найближчим часом.';
-    statusEl.style.color = 'var(--success)';
-    form.reset();
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbxey33WYmtHsqMGSmGvvt7fnDeieBbFpvevsiZ_n-mBNzndV09otpOS2Tsx9ONBclMa/exec", {
+        method: "POST",
+        body: formData
+      });
+
+      if (res.ok) {
+        statusEl.textContent = 'Дякуємо за ваш відгук!';
+        statusEl.style.color = 'var(--success)';
+        form.reset();
+      } else {
+        statusEl.textContent = 'Помилка при надсиланні.';
+        statusEl.style.color = 'var(--danger)';
+      }
+    } catch (err) {
+      statusEl.textContent = 'Мережна помилка.';
+      statusEl.style.color = 'var(--danger)';
+    }
   });
 }
 
@@ -114,14 +116,25 @@ const track = document.querySelector('.track');
 const items = document.querySelectorAll('.track blockquote'); 
 let index = 0; 
 
+function getVisibleCount() {
+  const width = window.innerWidth;
+  if (width >= 1024) return 3; // десктоп
+  if (width >= 768) return 2;  // планшет
+  return 1;                    // мобільний
+}
+
 function slide() { 
   if (!track || items.length === 0) return;
 
+  const visibleCount = getVisibleCount();
+  const itemWidth = track.clientWidth / visibleCount; // ширина однієї картки
   index++; 
-  track.style.transition = "transform 0.8s ease"; 
-  track.style.transform = `translateX(-${index * 330}px)`;
 
-  if (index >= items.length - 3) { 
+  track.style.transition = "transform 0.8s ease"; 
+  track.style.transform = `translateX(-${index * itemWidth}px)`;
+
+  // коли дійшли до кінця — скидаємо
+  if (index >= items.length - visibleCount + 1) { 
     setTimeout(() => { 
       track.style.transition = "none"; 
       track.style.transform = "translateX(0)"; 
@@ -129,5 +142,14 @@ function slide() {
     }, 850); 
   }
 }
+
+setInterval(slide, 4000);
+
+// важливо: при ресайзі перераховувати
+window.addEventListener('resize', () => {
+  track.style.transition = "none";
+  track.style.transform = "translateX(0)";
+  index = 0;
+});
 
 setInterval(slide, 4000);

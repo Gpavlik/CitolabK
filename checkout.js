@@ -1,5 +1,4 @@
-const form = document.getElementById('checkoutForm');
-const statusEl = document.querySelector('.form-status');
+
 const summaryEl = document.getElementById('orderSummary');
 
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -31,19 +30,6 @@ function renderSummary() {
   `;
 }
 renderSummary();
-
-// === Обробка форми ===
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-  const formData = new FormData(form);
-
-  // тут буде інтеграція з оплатою
-  await new Promise(r => setTimeout(r, 700));
-
-  statusEl.textContent = 'Дякуємо! Ваше замовлення прийнято.';
-  statusEl.style.color = 'var(--success)';
-  localStorage.removeItem('cart');
-});
 
 // === API НП ===
 const apiKey = "69e41bba3912f51631a358d2ec25e371";
@@ -113,3 +99,68 @@ citySuggestions.addEventListener("click", async e => {
     `<option value="${w.Description}">${w.Description}</option>`
   ).join("");
 });
+// === Обробка форми ===
+const form = document.getElementById('checkoutForm');
+const statusEl = form.querySelector('.form-status');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const formData = new FormData(form);
+
+  // Генеруємо унікальний orderReference
+  const orderReference = Date.now().toString();
+  formData.append("orderReference", orderReference);
+
+  try {
+    // 1. Відправка у Google Apps Script
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxey33WYmtHsqMGSmGvvt7fnDeieBbFpvevsiZ_n-mBNzndV09otpOS2Tsx9ONBclMa/exec", {
+      method: "POST",
+      body: formData
+    });
+
+    if (!res.ok) throw new Error("Помилка запису");
+
+    // 2. Повідомлення користувачу
+    statusEl.textContent = 'Дякуємо! Ваше замовлення прийнято.';
+    statusEl.style.color = 'var(--success)';
+
+    // 3. Редирект на WayForPay
+    const order = {
+      merchantAccount: "ВАШ_MERCHANT",
+      merchantDomainName: "ваш_сайт.com",
+      orderReference: orderReference,
+      orderDate: Math.floor(Date.now()/1000),
+      amount: 100, // сума замовлення
+      currency: "UAH",
+      productName: "Замовлення Cytolab",
+      clientEmail: formData.get("email"),
+      clientPhone: formData.get("phone")
+    };
+
+    // ⚠️ У реальному проекті треба згенерувати merchantSignature на бекенді!
+    // Тут показано приклад редиректу без підпису:
+    const payForm = document.createElement("form");
+    payForm.method = "POST";
+    payForm.action = "https://secure.wayforpay.com/pay";
+
+    for (const key in order) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = order[key];
+      payForm.appendChild(input);
+    }
+
+    document.body.appendChild(payForm);
+    payForm.submit();
+
+    localStorage.removeItem('cart');
+  } catch (err) {
+    statusEl.textContent = 'Помилка при оформленні замовлення.';
+    statusEl.style.color = 'var(--danger)';
+  }
+});
+
+
+
+
