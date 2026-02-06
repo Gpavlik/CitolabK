@@ -18,4 +18,4 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: ./
-          server-dir: /var/www/citolabk/citolabk.pharmasco.com/
+          server-dir: /citolabk.pharmasco.com/
