@@ -13,6 +13,6 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
           server: vs2877.mirohost.net
-          username: citolabk
+          username: citolabkd
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /var/www/citolabk/citolabk.pharmasco.com/
