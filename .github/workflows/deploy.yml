@@ -16,4 +16,4 @@ jobs:
           username: citolabk
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /var/www/citolabk/citolabk.pharmasco.com/
+          server-dir: /var/www/citolabk/citolabk.pharmasco.com/ 
