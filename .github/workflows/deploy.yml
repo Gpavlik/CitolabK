@@ -15,5 +15,5 @@ jobs:
           server: vs2877.mirohost.net
           username: citolabk
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist   # або ./build, або ./ (залежно від твоєї структури)
+          local-dir: ./
           server-dir: /var/www/citolabk
