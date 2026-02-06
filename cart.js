@@ -15,12 +15,12 @@ function renderCart() {
 
   cartItemsEl.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
-      <img src="${item.image}" alt="${item.name}" class="cart-thumb">
+      <img class="cart-thumb" src="${item.image}" alt="${item.name}">
       <h3>${item.name}</h3>
       <p>${item.price}</p>
       <label>
         Кількість:
-        <input class="qty-input input" type="number" min="1" value="${item.qty}" 
+        <input class="qty-input input" type="number" min="0" value="${item.qty}" 
                data-index="${i}" class="qty-input">
       </label>
     </div>

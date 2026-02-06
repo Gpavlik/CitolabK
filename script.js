@@ -91,7 +91,7 @@ if (form) {
     formData.append("formType", "feedback");
 
     try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbxey33WYmtHsqMGSmGvvt7fnDeieBbFpvevsiZ_n-mBNzndV09otpOS2Tsx9ONBclMa/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbzF-2iOelhAztpWBjfmcBmq37mYxubRj8c4zr3_7PKIFfdbSghsKCEFd9chdtwBBJNH/exec", {
         method: "POST",
         body: formData
       });

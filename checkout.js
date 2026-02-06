@@ -1,7 +1,19 @@
-
 const summaryEl = document.getElementById('orderSummary');
 
+// === Дані кошика ===
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// список товарів у форматі "Назва — кількість шт."
+const products = cart.map(item => `${item.name} — ${item.qty} шт.`).join('; ');
+
+// загальна кількість упаковок
+const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+
+// загальна сума
+const total = cart.reduce((sum, item) => {
+  const priceNum = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
+  return sum + priceNum * item.qty;
+}, 0);
 
 // === Показ замовлення ===
 function renderSummary() {
@@ -10,21 +22,17 @@ function renderSummary() {
     return;
   }
 
-  const total = cart.reduce((sum, item) => {
-    const priceNum = parseFloat(item.price.replace(/[^\d.]/g, '')) || 0;
-    return sum + priceNum * item.qty;
-  }, 0);
-
   summaryEl.innerHTML = `
     <h2>Ваше замовлення</h2>
     <ul>
       ${cart.map(item => `
-        <li>
-          <img src="${item.image}" alt="${item.name}" style="width:40px">
+        <li style="font-size:1.1rem">
+          <img src="${item.image}" alt="${item.name}" style="width:200px">
           ${item.name} — ${item.qty} шт. (${item.price})
         </li>
       `).join('')}
     </ul>
+    <p><strong>Загальна кількість: ${totalQty} шт.</strong></p>
     <p><strong>Загальна сума: ${total} грн</strong></p>
     <p>Доставка: Згідно тарифів перевізника</p>
   `;
@@ -99,6 +107,7 @@ citySuggestions.addEventListener("click", async e => {
     `<option value="${w.Description}">${w.Description}</option>`
   ).join("");
 });
+
 // === Обробка форми ===
 const form = document.getElementById('checkoutForm');
 const statusEl = form.querySelector('.form-status');
@@ -107,13 +116,22 @@ form.addEventListener('submit', async e => {
   e.preventDefault();
   const formData = new FormData(form);
 
-  // Генеруємо унікальний orderReference
   const orderReference = Date.now().toString();
   formData.append("orderReference", orderReference);
 
+  // товари та сума
+  formData.append("products", products);
+  formData.append("totalQty", totalQty);
+  formData.append("total", total);
+
+  // місто та поштомат
+  formData.append("cityInput", cityInput.value);
+  formData.append("branch", warehouseSelect.value);
+
+
   try {
     // 1. Відправка у Google Apps Script
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxey33WYmtHsqMGSmGvvt7fnDeieBbFpvevsiZ_n-mBNzndV09otpOS2Tsx9ONBclMa/exec", {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbzF-2iOelhAztpWBjfmcBmq37mYxubRj8c4zr3_7PKIFfdbSghsKCEFd9chdtwBBJNH/exec", {
       method: "POST",
       body: formData
     });
@@ -121,8 +139,10 @@ form.addEventListener('submit', async e => {
     if (!res.ok) throw new Error("Помилка запису");
 
     // 2. Повідомлення користувачу
-    statusEl.textContent = 'Дякуємо! Ваше замовлення прийнято.';
-    statusEl.style.color = 'var(--success)';
+    if (statusEl) {
+      statusEl.textContent = '✅ Дякуємо! Ваше замовлення прийнято.';
+      statusEl.style.color = 'var(--success)';
+    }
 
     // 3. Редирект на WayForPay
     const order = {
@@ -130,7 +150,7 @@ form.addEventListener('submit', async e => {
       merchantDomainName: "ваш_сайт.com",
       orderReference: orderReference,
       orderDate: Math.floor(Date.now()/1000),
-      amount: 100, // сума замовлення
+      amount: total, // реальна сума замовлення
       currency: "UAH",
       productName: "Замовлення Cytolab",
       clientEmail: formData.get("email"),
@@ -138,7 +158,6 @@ form.addEventListener('submit', async e => {
     };
 
     // ⚠️ У реальному проекті треба згенерувати merchantSignature на бекенді!
-    // Тут показано приклад редиректу без підпису:
     const payForm = document.createElement("form");
     payForm.method = "POST";
     payForm.action = "https://secure.wayforpay.com/pay";
@@ -156,11 +175,9 @@ form.addEventListener('submit', async e => {
 
     localStorage.removeItem('cart');
   } catch (err) {
-    statusEl.textContent = 'Помилка при оформленні замовлення.';
-    statusEl.style.color = 'var(--danger)';
+    if (statusEl) {
+      statusEl.textContent = '❌ Помилка при оформленні замовлення.';
+      statusEl.style.color = 'var(--danger)';
+    }
   }
 });
-
-
-
-

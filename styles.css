@@ -56,7 +56,7 @@ a:hover{text-decoration:underline}
 .btn-small{padding:8px 12px}
 
 /* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:10px;font-weight:600;border:1px solid var(--border);transition:.2s ease;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:20px 10px;border-radius:10px;font-weight:600;border:1px solid var(--border);transition:.2s ease;cursor:pointer;font-size:1.25rem;}
 .btn-primary{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
 .btn-primary:hover{filter:brightness(1.05)}
 .btn-outline{background:#fff;color:var(--primary);border-color:var(--primary)}
@@ -99,17 +99,17 @@ a:hover{text-decoration:underline}
 
 /* Reviews */
 .carousel{overflow:hidden;margin:auto;width:100%;max-width:1100px;padding: 0 8px;}
-.track{display:flex;transition:transform 0.8s ease;gap:16px}
+.track{display:flex;transition:transform 0.8s ease;gap:18px}
 .track blockquote{background:#f9f9f9;padding:16px;border-radius:12px;margin:0; flex: 0 0 100%}
 
 /* Десктоп: 3 відгуки */
 @media (min-width:1024px){
-  .track blockquote{flex:0 0 calc(100%/3 - 16px)}
+  .track blockquote{flex:0 0 calc(100%/3 - 18px)}
 }
 
 /* Планшет: 2 відгуки */
 @media (max-width:1023px) and (min-width:768px){
-  .track blockquote{flex:0 0 calc(100%/2 - 16px)}
+  .track blockquote{flex:0 0 calc(100%/2 - 18px)}
 }
 
 /* Мобільні: 1 відгук */
@@ -128,7 +128,7 @@ blockquote footer{margin-top:8px;color:var(--muted)}
 /* Contact */
 .contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
 .contact-form{display:grid;gap:10px}
-.contact-form input,.contact-form textarea,.contact-form select{border:1px solid var(--border);border-radius:10px;padding:12px;font-size:1rem}
+.contact-form input,.contact-form textarea,.contact-form select{border:1px solid var(--border);border-radius:10px;padding:12px;font-size:1,25rem}
 .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{outline:2px solid var(--primary-weak)}
 .form-status{min-height:20px;color:var(--muted)}
 .contact-info{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
@@ -145,14 +145,15 @@ blockquote footer{margin-top:8px;color:var(--muted)}
 .footer-copyright { margin-top: 8px; color: var(--muted); font-size: x-small}
 
 /* Cart / Buy */
-.cart-item {
+.cart-item label {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 1.25rem;
 }
 .cart-thumb {
-  width: 60px;
+  width: 400px;
   height: auto;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -276,16 +277,9 @@ blockquote footer{margin-top:8px;color:var(--muted)}
   box-shadow: var(--shadow);
 }
 
-.cart-thumb {
-  width:auto;
-  height: 300px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
 .cart-item h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
   flex: 1;
 }
 
@@ -293,6 +287,7 @@ blockquote footer{margin-top:8px;color:var(--muted)}
   margin: 0;
   font-weight: 600;
   color: var(--primary);
+  font-size: 1.25rem;
 }
 
 .qty-input {
@@ -300,7 +295,7 @@ blockquote footer{margin-top:8px;color:var(--muted)}
   padding: 6px;
   border: 1px solid var(--border);
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 /* Summary */
@@ -352,4 +347,6 @@ blockquote footer{margin-top:8px;color:var(--muted)}
   padding: 40px;
   border: 1px solid var(--border);
   border-radius: 12px;
+  flex-direction: column;
+  font-size: 1.25rem;
 }
