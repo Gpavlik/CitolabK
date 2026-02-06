@@ -15,4 +15,7 @@ jobs:
           server: vs2877.mirohost.net
           username: citolabk
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
           server-dir: /var/www/citolabk/citolabk.pharmasco.com/
