@@ -147,7 +147,7 @@ form.addEventListener('submit', async e => {
     // 3. Редирект на WayForPay
     const order = {
       merchantAccount: "ВАШ_MERCHANT",
-      merchantDomainName: "ваш_сайт.com",
+      merchantDomainName: "https://citolabk.pharmasco.com",
       orderReference: orderReference,
       orderDate: Math.floor(Date.now()/1000),
       amount: total, // реальна сума замовлення
