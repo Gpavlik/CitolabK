@@ -126,9 +126,9 @@ blockquote footer{margin-top:8px;color:var(--muted)}
 .cta-actions{display:flex;gap:12px;justify-content:center;margin-top:12px}
 
 /* Contact */
-.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+.contact-grid{display:grid;gap:20px}
 .contact-form{display:grid;gap:10px}
-.contact-form input,.contact-form textarea,.contact-form select{border:1px solid var(--border);border-radius:10px;padding:12px;font-size:1.25rem}
+.contact-form input,.contact-form textarea,.contact-form select{border:1px solid var(--border);border-radius:10px;padding:12px;font-size:1.25rem; width: stretch;}
 .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{outline:2px solid var(--primary-weak)}
 .form-status{min-height:20px;color:var(--muted)}
 .contact-info{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
@@ -222,10 +222,14 @@ blockquote footer{margin-top:8px;color:var(--muted)}
     font-size:16px;
   }
 
-  .site-footer .footer-inner{
+  .site-footer {
     flex-direction:column;
     gap:8px;
     text-align:center;
+  }
+  .footer-inner {
+    justify-content:center;
+    flex-wrap:wrap;
   }
 }
 
