@@ -75,7 +75,7 @@ document.querySelectorAll('button[data-product]').forEach(btn => {
     cart.push(product);
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    window.location.href = "./cart.html";
+    window.location.href = "https://newshop.pharmasco.com/ru/product/test-polosky-dlia-opredelenyia-ketonov-%e2%84%965/";
   });
 });
 
